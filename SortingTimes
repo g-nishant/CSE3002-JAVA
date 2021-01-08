@@ -1,0 +1,87 @@
+import java.util.Random;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+import java.util.Stack;
+
+class QuickSort{
+  
+   
+  	int divide(int arr[], int min, int max) 
+    { 
+        int piv = arr[max];  
+        int i = (min-1); 
+        for (int j=min; j<max; j++) 
+        { 
+            
+            if (arr[j] < piv) 
+            { 
+                i++; 
+  
+                // swap i and j
+                int temp = arr[i]; 
+                arr[i] = arr[j]; 
+                arr[j] = temp; 
+            } 
+        } 
+  
+        // swapping
+        int temp = arr[i+1]; 
+        arr[i+1] = arr[max]; 
+        arr[max] = temp; 
+  
+        return i+1; 
+    }
+
+  
+  
+    
+    void sort(int arr[], int min, int max) 
+    { 
+        if (min < max) 
+        { 
+           
+            int pi = divide(arr, min, max);                
+            sort(arr, min, pi-1); 
+            sort(arr, pi+1, max); 
+        } 
+    } 
+  
+}     
+     
+
+public class CompareTimes {
+		public static void main(String[] args) {
+    
+   		Stack<Integer> timeStack = new Stack<> ();
+    	int sortingArray[] = new int[1000]; // Declaring array 
+        Random elements = new Random();		//Random class object 
+        for(int i=0; i<1000; i++){			
+            sortingArray[i]= (elements.nextInt(1000)+1);//generating array elements using a random number generator
+        }
+       int l = sortingArray.length;
+       
+       Quick q = new Quick();			//Class containing sorting algorithm
+       
+        
+        for(int j=1;j<=5;j++)
+        {  
+        long start = System.nanoTime();
+		q.sort(sortingArray, 0, l-1 );
+		long end = System.nanoTime();
+		long timeInMillis = TimeUnit.MILLISECONDS.convert(end - start, TimeUnit.NANOSECONDS);
+		
+          int seconds = (int) (timeInMillis/1000)% 60 ;
+          timeStack.push(seconds);
+        }  
+          for(int k=1;k<=5;k++)
+          {	         
+           
+          
+			System.out.println("Time taken in run "+k+"was "); timeStack.peek();
+            
+          
+          }
+    
+}    
+}  
+
